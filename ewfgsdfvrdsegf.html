@@ -7,11 +7,20 @@
 		body
 		{
 			text-align: center;
+			margin: 15vh;
 		}
 	</style>
 	<script type="text/javascript">
 		function viewJSON(what)
 		{
+			//Check for empty text entry
+			if (what == "")
+			{
+				//Write appropriate message
+				alert("No file name entered. Please enter the name of a valid JSON file.");
+				return;
+			}
+
 			function loadJSON(url)
 			{
 				if (window.XMLHttpRequest)
@@ -22,13 +31,32 @@
 				{
 					xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");  
 				}
+
 				xmlhttp.open("GET",url,false);
 				xmlhttp.send();
-				jsonObj= JSON.parse(xmlhttp.responseText);
+
+				//File could not be found
+				if (xmlhttp != 200) { return null; }
+
+				jsonObj = JSON.parse(xmlhttp.responseText);
+
 				return jsonObj;   
 			}
 
 			jsonObj = loadJSON(what);
+
+			if (jsonObj == null)
+			{
+				alert("File could not be found.");
+				return;
+			}
+
+			//Checks if there are any films to display
+			if (('Row' in jsonObj.Mainline.Table) == false)
+			{
+				alert("JSON file contains no films.");
+				return;
+			}
 
 			if (window.ActiveXObject)
 			{  
@@ -39,17 +67,17 @@
 					hWin = window.open("", "Error", "height=300,width=340");
 					hWin.document.write(html_text);
 				} 
-				else 
-				{  
+				else
+				{
 					generateHTML(jsonObj);
-		    		hWin = window.open("", "Assignment4", "height=1600,width=900");
+					hWin = window.open("", "Assignment4", "height=750,width=1000");
 		    		hWin.document.write(html_text);   
 				} 
 			} 
 			else
 			{  
 				jsonObj.onload=generateHTML(jsonObj);
-				hWin = window.open("", "Assignment4", "height=1600,width=900");
+				hWin = window.open("", "Assignment4", "height=750,width=1000");
 				hWin.document.write(html_text);  
 			} 
 			hWin.document.close();  
@@ -57,23 +85,29 @@
 
 		function generateHTML(jsonObj)   
 		{
+			//Sets page head
 			html_text="<html><head><title>JSON Parse Result</title></head><body>";
+			//Sets up table
 			html_text+="<table border='2'>";
 
 			html_text+="<tbody>"; 
 			html_text+="<tr>"; 
 
+			//Gets a list of the header keys
 			var header_keys = jsonObj.Mainline.Table.Header.Data;
 
+			//Adds in column headers
 			for(i=0;i<header_keys.length;i++)           
 			{
 				html_text+="<th>"+header_keys[i]+"</th>";
 			}
 
+			//Gets a list of films in the JSON
 			var films = jsonObj.Mainline.Table.Row;
 
 			for(i=0;i<films.length;i++)
 			{
+				//Adds a new row with film information
 				html_text+="<tr>";
 				html_text+="<td>"+films[i].Title+"</td>";
 				html_text+="<td>"+films[i].Year+"</td>";
@@ -83,7 +117,8 @@
 				html_text+="<td><img width=\"100\" src=\""+films[i].Logo+"\"/></td>";
 				html_text+="</tr>";
 			}
-			                         
+			          
+			//Closes off table               
 			html_text+="</tbody>"; 
 			html_text+="</table>";           
 			html_text+="</body></html>";  
