@@ -36,7 +36,10 @@
 				xmlhttp.send();
 
 				//File could not be found
-				alert(xmlhttp.status);
+				if (xmlhttp.status == 404)
+				{
+					return null;
+				}
 
 				jsonObj = JSON.parse(xmlhttp.responseText);
 
@@ -45,6 +48,7 @@
 
 			jsonObj = loadJSON(what);
 
+			//Checks if JSON object could not be located
 			if (jsonObj == null)
 			{
 				alert("File could not be found.");
