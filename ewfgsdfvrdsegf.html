@@ -13,6 +13,7 @@
 	<script type="text/javascript">
 		function viewJSON(what)
 		{
+			//what: the string of the filename of the entered JSON file
 			//Check for empty text entry
 			if (what == "")
 			{
@@ -32,6 +33,7 @@
 					xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");  
 				}
 
+				//Open URL of JSON file
 				xmlhttp.open("GET",url,false);
 				xmlhttp.send();
 
@@ -41,11 +43,13 @@
 					return null;
 				}
 
+				//Parse JSON
 				jsonObj = JSON.parse(xmlhttp.responseText);
 
 				return jsonObj;   
 			}
 
+			//Attempts to open file and parse it to a JSON object
 			jsonObj = loadJSON(what);
 
 			//Checks if JSON object could not be located
@@ -73,7 +77,9 @@
 				} 
 				else
 				{
+					//Takes the JSON object and constructs an HTML document string and stores it in the variable 'html_text'
 					generateHTML(jsonObj);
+					//Opens and writes to window
 					hWin = window.open("", "Assignment4", "height=750,width=1000");
 		    		hWin.document.write(html_text);   
 				} 
@@ -113,12 +119,19 @@
 			{
 				//Adds a new row with film information
 				html_text+="<tr>";
+				//File title
 				html_text+="<td>"+films[i].Title+"</td>";
+				//Film Year
 				html_text+="<td>"+films[i].Year+"</td>";
+				//Constructs unordered list of film director and film description in same TD (with direcotr in bold)
 				html_text+="<td><ul><li><b>"+films[i].Hubs.Hub[0]+"</b></li><li>"+films[i].Hubs.Hub[1]+"</li></ul></td>";
+				//Film gross
 				html_text+="<td>"+films[i].Gross+"</td>";
+				//Wikipedia link contained in a tag
 				html_text+="<td nowrap><a href=\""+films[i].HomePage+"\">"+films[i].HomePage+"</a></td>";
+				//Places film log into img tag and hard sets its width to 100
 				html_text+="<td><img width=\"100\" src=\""+films[i].Logo+"\"/></td>";
+				//Close row
 				html_text+="</tr>";
 			}
 			          
