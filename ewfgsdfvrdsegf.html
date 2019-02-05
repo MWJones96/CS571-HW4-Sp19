@@ -124,7 +124,17 @@
 				//Film Year
 				html_text+="<td>"+films[i].Year+"</td>";
 				//Constructs unordered list of film director and film description in same TD (with direcotr in bold)
-				html_text+="<td><ul><li><b>"+films[i].Hubs.Hub[0]+"</b></li><li>"+films[i].Hubs.Hub[1]+"</li></ul></td>";
+				html_text+="<td><ul>";
+				//Constructs list items on the condition that the subsequent strings are not empty
+				if (films[i].Hubs.Hub[0] != "")
+				{
+					html_text += "<li><b>"+films[i].Hubs.Hub[0]+"</b></li>";
+				}
+				if (films[i].Hubs.Hub[1] != "")
+				{
+					html_text += "<li>"+films[i].Hubs.Hub[1]+"</li>";
+				}
+				html_text += "</ul></td>";
 				//Film gross
 				html_text+="<td>"+films[i].Gross+"</td>";
 				//Wikipedia link contained in a tag
