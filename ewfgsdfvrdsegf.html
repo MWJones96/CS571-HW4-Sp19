@@ -124,17 +124,31 @@
 				//Film Year
 				html_text+="<td>"+films[i].Year+"</td>";
 				//Constructs unordered list of film director and film description in same TD (with direcotr in bold)
-				html_text+="<td><ul>";
-				//Constructs list items on the condition that the subsequent strings are not empty
-				if (films[i].Hubs.Hub[0] != "")
+
+				//Conditional formats information based on data in 'Hub'
+				html_text+="<td>";
+				if (films[i].Hubs.Hub.length > 0)
 				{
-					html_text += "<li><b>"+films[i].Hubs.Hub[0]+"</b></li>";
+					//Creates an unordered list
+					html_text+="<ul>";
+					//Make the first item in 'Hub' bold, if it is nonempty
+					if (films[i].Hubs.Hub[0] != "")
+					{
+						html_text += "<li><b>"+films[i].Hubs.Hub[0]+"</b></li>";
+					}
+
+					//Make the other items normal
+					for (j=1;j<films[i].Hubs.Hub.length; j++)
+					{
+						if (films[i].Hubs.Hub[j] != "")
+						{
+							html_text += "<li>"+films[i].Hubs.Hub[j]+"</li>";
+						}
+					}
+
+					html_text += "</ul>";
 				}
-				if (films[i].Hubs.Hub[1] != "")
-				{
-					html_text += "<li>"+films[i].Hubs.Hub[1]+"</li>";
-				}
-				html_text += "</ul></td>";
+				html_text+="</td>";
 				//Film gross
 				html_text+="<td>"+films[i].Gross+"</td>";
 				//Wikipedia link contained in a tag
