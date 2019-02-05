@@ -125,7 +125,7 @@
 				html_text+="<td>"+films[i].Year+"</td>";
 				//Constructs unordered list of film director and film description in same TD (with direcotr in bold)
 
-				//Conditional formats information based on data in 'Hub'
+				//Conditionally formats information based on data in 'Hub'
 				html_text+="<td>";
 				if (films[i].Hubs.Hub.length > 0)
 				{
@@ -154,7 +154,7 @@
 				//Wikipedia link contained in a tag
 				html_text+="<td nowrap><a href=\""+films[i].HomePage+"\">"+films[i].HomePage+"</a></td>";
 				//Places film log into img tag and hard sets its width to 100
-				html_text+="<td><img width=\"100\" src=\""+films[i].Logo+"\"/></td>";
+				html_text+="<td><img width=\"100\" src=\""+films[i].Logo+"\"/ alt=\"\"></td>";
 				//Close row
 				html_text+="</tr>";
 			}
