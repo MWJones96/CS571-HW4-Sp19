@@ -131,19 +131,13 @@
 				{
 					//Creates an unordered list
 					html_text+="<ul>";
-					//Make the first item in 'Hub' bold, if it is nonempty
-					if (films[i].Hubs.Hub[0] != "")
-					{
-						html_text += "<li><b>"+films[i].Hubs.Hub[0]+"</b></li>";
-					}
+					//Make the first item in 'Hub' bold
+					html_text += "<li><b>"+films[i].Hubs.Hub[0]+"</b></li>";
 
 					//Make the other items normal
 					for (j=1;j<films[i].Hubs.Hub.length; j++)
 					{
-						if (films[i].Hubs.Hub[j] != "")
-						{
-							html_text += "<li>"+films[i].Hubs.Hub[j]+"</li>";
-						}
+						html_text += "<li>"+films[i].Hubs.Hub[j]+"</li>";
 					}
 
 					html_text += "</ul>";
