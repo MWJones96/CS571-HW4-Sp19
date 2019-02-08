@@ -65,6 +65,15 @@
 				alert("JSON file contains no films.");
 				return;
 			}
+			else
+			{
+				//Check if the array is empty, if it does exist
+				if (jsonObj.Mainline.Table.Row.length == 0)
+				{
+					alert("JSON file contains no films.");
+					return;
+				}
+			}
 
 			if (window.ActiveXObject)
 			{  
